@@ -11,21 +11,15 @@ if (PHP_SAPI == 'cli-server') {
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Chiquitto
 define('APPLICATION_PATH', realpath(__DIR__ . '/..'));
-
-$options['nestSeparator'] = '.';
-$config = new Zend_Config_Ini(APPLICATION_PATH . '/data/application.ini', 'development', $options);
-
-$db = Zend_Db::factory($config->resources->db->adapter, $config->resources->db->params);
-Zend_Db_Table_Abstract::setDefaultAdapter($db);
-// Chiquitto
 
 session_start();
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
+
+require __DIR__ . '/../src/db.php';
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
